@@ -2,7 +2,7 @@
 ; RUN: llvm-spirv %t.bc -spirv-text -o - | FileCheck  %s
 
 ; CHECK: Capability Addresses
-; CHECK: "foobarbaz"
+; CHECK: "foo"
 
 __kernel void foo(__global int *a) {
 }
