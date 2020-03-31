@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // Pipe built-ins are mangled accordingly to SPIR2.0/C++ ABI.
 
 // RUN: %clang_cc1 -x cl -cl-std=CL2.0 -triple spir64-unknonw-unknown -emit-llvm-bc -finclude-default-header -Dcl_khr_subgroups %s -o %t.bc

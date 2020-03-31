@@ -1,3 +1,4 @@
+// REQUIRES: clang
 kernel void test(int global *in, int global *in2) {
   if (!in) 
     return;

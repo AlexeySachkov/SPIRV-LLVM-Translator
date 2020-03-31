@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // RUN: %clang_cc1 -triple spir64 -finclude-default-header -O0 -cl-std=CL2.0 -emit-llvm-bc %s -o %t.bc
 // RUN: llvm-spirv %t.bc -o %t.spv
 // RUN: spirv-val %t.spv

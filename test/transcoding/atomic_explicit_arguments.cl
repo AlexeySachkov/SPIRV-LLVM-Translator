@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // RUN: %clang_cc1 -triple spir -cl-std=cl2.0 %s -finclude-default-header -emit-llvm-bc -o %t.bc
 // RUN: llvm-spirv %t.bc -o %t.spv
 // RUN: llvm-spirv %t.spv -to-text -o - | FileCheck %s --check-prefix=CHECK-SPIRV

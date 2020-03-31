@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // Check that translator doesn't generate atomic instructions for atomic builtins
 // which are not defined in the spec.
 

@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // RUN: %clang_cc1 -triple spir64-unknown-unknown -cl-std=CL2.0 -O0 -debug-info-kind=standalone -emit-llvm-bc %s -o %t.bc
 // RUN: llvm-spirv %t.bc --spirv-ext=+SPV_INTEL_unstructured_loop_controls -o %t.spv
 // RUN: llvm-spirv %t.spv --to-text -o %t.spt

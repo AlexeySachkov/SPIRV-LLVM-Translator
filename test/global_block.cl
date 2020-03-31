@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // There are no blocks in SPIR-V. Therefore they are translated into regular
 // functions. An LLVM module which uses blocks, also contains some auxiliary
 // block-specific instructions, which are redundant in SPIR-V and should be

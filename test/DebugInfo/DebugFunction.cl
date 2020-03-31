@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // Check for 2 things:
 // - After round trip translation function definition has !dbg metadata attached
 //   specifically if -gline-tables-only was used for Clang

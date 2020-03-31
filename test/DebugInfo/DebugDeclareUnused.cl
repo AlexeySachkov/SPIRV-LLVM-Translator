@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // Check that we can translate llvm.dbg.declare for a local variable which was
 // deleted by mem2reg pass(disabled by default in llvm-spirv)
 

@@ -1,3 +1,4 @@
+// REQUIRES: clang
 // Check that DebugLoc attached to a builtin call is preserved after translation.
 
 // RUN: %clang_cc1 -triple spir -fdeclare-opencl-builtins -finclude-default-header %s -disable-llvm-passes -emit-llvm-bc -debug-info-kind=line-tables-only -dwarf-column-info -o %t.bc
