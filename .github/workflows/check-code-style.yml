@@ -41,7 +41,7 @@ jobs:
       id: gather-list-of-changes
       run: |
         git diff -U0 --no-color ${{ github.sha }}^ > diff-to-inspect.txt
-        if [ -s diff-to-inspect.list ]; then
+        if [ -s diff-to-inspect.txt ]; then
           # Here we set an output of our step, which is used later to either
           # perform or skip further steps, i.e. there is no sense to install
           # clang-format if PR hasn't changed .cpp files at all
