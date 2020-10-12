@@ -230,3 +230,4 @@ enum Entrypoints {
 };
 
 } // end namespace OpenCL20
+// clang-format on
