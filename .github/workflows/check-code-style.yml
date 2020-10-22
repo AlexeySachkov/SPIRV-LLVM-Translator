@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "::warning file=lib/libSPIRV/SPIRVUtil.cpp,line=288::Test warnings"
+          echo "::warning file=lib/SPIRV/SPIRVUtil.cpp,line=288::Test warnings"
 
   clang-format-and-tidy:
     name: Run clang-format & clang-tidy
