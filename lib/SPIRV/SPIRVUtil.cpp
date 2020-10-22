@@ -286,6 +286,7 @@ bool isSPIRVType(llvm::Type *Ty, StringRef BaseTyName, StringRef *Postfix) {
 Function *getOrCreateFunction(Module *M, Type *RetTy, ArrayRef<Type *> ArgTypes,
                               StringRef Name, BuiltinFuncMangleInfo *Mangle,
                               AttributeList *Attrs, bool TakeName) {
+
   std::string MangledName{Name};
   bool IsVarArg = false;
   if (Mangle) {
