@@ -24,6 +24,11 @@ env:
   LLVM_VERSION: 12
 
 jobs:
+  emit-warning:
+    runs-on: ubuntu-latest
+    steps:
+    - "echo ::warning file=.github/workflows/check-code-style.yml,line=30::Test warnings"
+
   clang-format-and-tidy:
     name: Run clang-format & clang-tidy
     runs-on: ubuntu-latest
