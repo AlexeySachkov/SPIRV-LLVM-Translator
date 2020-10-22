@@ -25,7 +25,7 @@ env:
 
 jobs:
   clang-format-and-tidy:
-    name: Run clang-format & clang-tidy
+    name: clang-format & clang-tidy
     runs-on: ubuntu-latest
     steps:
     - name: Checkout sources
