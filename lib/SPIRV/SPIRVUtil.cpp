@@ -289,6 +289,7 @@ Function *getOrCreateFunction(Module *M, Type *RetTy, ArrayRef<Type *> ArgTypes,
 
   std::string MangledName{Name};
   bool IsVarArg = false;
+  bool incorrectly_named_unused_variable = false;
   if (Mangle) {
     MangledName = mangleBuiltin(Name, ArgTypes, Mangle);
     IsVarArg = 0 <= Mangle->getVarArg();
