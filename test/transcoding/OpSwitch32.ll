@@ -30,7 +30,7 @@ target triple = "spir64-unknown-unknown"
 
 ;CHECK-LLVM: test_32
 ;CHECK-LLVM: entry
-;CHECK-LLVM: switch i32 %6, label %sw.epilog
+;CHECK-LLVM: switch i32 %7, label %sw.epilog
 ;CHECK-LLVM: i32 0, label %sw.bb
 ;CHECK-LLVM: i32 1, label %sw.bb1
 
@@ -50,7 +50,7 @@ entry:
   ]
 
 ;CHECK-LLVM: sw.bb
-;CHECK-LLVM: preds = %entry
+;CHECK-LLVM: preds = %[[ENTRYBB:[0-9]+]]
 sw.bb:                                            ; preds = %entry
   %1 = load i32, i32* %tid, align 4
   %idxprom = sext i32 %1 to i64
@@ -60,7 +60,7 @@ sw.bb:                                            ; preds = %entry
   br label %sw.epilog
 
 ;CHECK-LLVM: sw.bb1
-;CHECK-LLVM: preds = %entry
+;CHECK-LLVM: preds = %[[ENTRYBB]]
 sw.bb1:                                           ; preds = %entry
   %3 = load i32, i32* %tid, align 4
   %idxprom2 = sext i32 %3 to i64
@@ -70,7 +70,7 @@ sw.bb1:                                           ; preds = %entry
   br label %sw.epilog
 
 ;CHECK-LLVM: sw.epilog
-;CHECK-LLVM: preds = %sw.bb1, %sw.bb, %entry
+;CHECK-LLVM: preds = %sw.bb1, %sw.bb, %[[ENTRYBB]]
 sw.epilog:                                        ; preds = %entry, %sw.bb1, %sw.bb
   ret void
 }

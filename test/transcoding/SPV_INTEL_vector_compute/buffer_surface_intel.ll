@@ -60,13 +60,13 @@ declare i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image3d_ro_t(%opencl.image
 ; LLVM-DAG: define spir_kernel void @test(%intel.buffer_ro_t addrspace(1)* %buf_ro, %intel.buffer_wo_t addrspace(1)* %buf_wo, %intel.buffer_rw_t addrspace(1)* %buf_rw, %opencl.image1d_rw_t addrspace(1)* %im1d, %opencl.image1d_buffer_wo_t addrspace(1)* %im1db, %opencl.image2d_wo_t addrspace(1)* %im2d, %opencl.image3d_ro_t addrspace(1)* %im3d)
 define spir_kernel void @test(%intel.buffer_ro_t addrspace(1)* %buf_ro, %intel.buffer_wo_t addrspace(1)* %buf_wo, %intel.buffer_rw_t addrspace(1)* %buf_rw, %opencl.image1d_rw_t addrspace(1)* %im1d, %opencl.image1d_buffer_wo_t addrspace(1)* %im1db, %opencl.image2d_wo_t addrspace(1)* %im2d, %opencl.image3d_ro_t addrspace(1)* %im3d) #0 {
 entry:
-; LLVM: %0 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_ro_t(%intel.buffer_ro_t addrspace(1)* %buf_ro)
-; LLVM: %1 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_wo_t(%intel.buffer_wo_t addrspace(1)* %buf_wo)
-; LLVM: %2 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_rw_t(%intel.buffer_rw_t addrspace(1)* %buf_rw)
-; LLVM: %3 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image1d_rw_t(%opencl.image1d_rw_t addrspace(1)* %im1d)
-; LLVM: %4 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image1d_buffer_wo_t(%opencl.image1d_buffer_wo_t addrspace(1)* %im1db)
-; LLVM: %5 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image2d_wo_t(%opencl.image2d_wo_t addrspace(1)* %im2d)
-; LLVM: %6 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image3d_ro_t(%opencl.image3d_ro_t addrspace(1)* %im3d)
+; LLVM: %1 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_ro_t(%intel.buffer_ro_t addrspace(1)* %buf_ro)
+; LLVM: %2 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_wo_t(%intel.buffer_wo_t addrspace(1)* %buf_wo)
+; LLVM: %3 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_rw_t(%intel.buffer_rw_t addrspace(1)* %buf_rw)
+; LLVM: %4 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image1d_rw_t(%opencl.image1d_rw_t addrspace(1)* %im1d)
+; LLVM: %5 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image1d_buffer_wo_t(%opencl.image1d_buffer_wo_t addrspace(1)* %im1db)
+; LLVM: %6 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image2d_wo_t(%opencl.image2d_wo_t addrspace(1)* %im2d)
+; LLVM: %7 = call i32 @llvm.some.unknown.intrinsic.i32.p1opencl.image3d_ro_t(%opencl.image3d_ro_t addrspace(1)* %im3d)
 ; LLVM: ret void
   %0 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_ro_t(%intel.buffer_ro_t addrspace(1)* %buf_ro)
   %1 = call i32 @llvm.some.unknown.intrinsic.i32.p1intel.buffer_wo_t(%intel.buffer_wo_t addrspace(1)* %buf_wo)

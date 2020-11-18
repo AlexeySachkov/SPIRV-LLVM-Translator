@@ -37,6 +37,7 @@ $"_ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEE11test_kernel" = comdat any
 
 ; CHECK: {{[0-9]+}} TypePointer [[S_E_STRUCT_PTR_ID:[0-9]+]] {{[0-9]+}} [[S_E_STRUCT_ID]]
 
+
 ; Function Attrs: inlinehint nounwind
 define internal spir_func void @"_ZZZ4mainENK3$_0clERN2cl4sycl7handlerEENKUlvE_clEv"(%"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)* %this) #3 align 2 !dbg !48 {
 entry:
@@ -52,6 +53,9 @@ entry:
 ; CHECK: {{[0-9]+}} Variable [[S_E_STRUCT_PTR_ID]] [[VAR_F_ID:[0-9]+]]
   %agg-temp = alloca %"struct._ZTSZZZ4mainENK3$_0clERN2cl4sycl7handlerEENKUlvE_clEvE3s_e.s_e", align 4
 ; CHECK: {{[0-9]+}} Variable [[S_E_STRUCT_PTR_ID]] [[AGG_TMP_ID:[0-9]+]]
+
+; CHECK: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_PUMP_ID]]
+
   store %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)* %this, %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)** %this.addr, align 8, !tbaa !69
   call void @llvm.dbg.declare(metadata %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)** %this.addr, metadata !50, metadata !DIExpression()), !dbg !71
   %this1 = load %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)*, %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)** %this.addr, align 8
@@ -62,7 +66,6 @@ entry:
   %Buf2 = bitcast [1 x i8]* %Buf to i8*, !dbg !72
   call void @llvm.var.annotation(i8* %Buf2, i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str, i32 0, i32 0), i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str.1, i32 0, i32 0), i32 15, i8* null), !dbg !72
 ; CHECK:      {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugNoScope
-; CHECK-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_PUMP_ID]]
 ; CHECK-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FILE_ID]]
   call spir_func void @_Z1fv(), !dbg !74
 ; -- var.annotation call is dropped. Restore debug scope after the call.

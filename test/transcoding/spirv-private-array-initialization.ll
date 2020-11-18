@@ -22,22 +22,23 @@
 ; CHECK-SPIRV: Variable [[i32x3_ptr]] [[arr:[0-9]+]] 7
 ; CHECK-SPIRV: Variable [[i32x3_ptr]] [[arr2:[0-9]+]] 7
 ;
-; CHECK-SPIRV: Bitcast [[i8_ptr]] [[arr_i8_ptr:[0-9]+]] [[arr]]
+; CHECK-SPIRV: Bitcast [[const_i8_ptr]] [[test_arr2_const_i8_ptr:[0-9]+]] [[test_arr2]]
 ; CHECK-SPIRV: Bitcast [[const_i8_ptr]] [[test_arr_const_i8_ptr:[0-9]+]] [[test_arr]]
+;
+; CHECK-SPIRV: Bitcast [[i8_ptr]] [[arr_i8_ptr:[0-9]+]] [[arr]]
 ; CHECK-SPIRV: CopyMemorySized [[arr_i8_ptr]] [[test_arr_const_i8_ptr]] [[twelve]] 2 4
 ;
 ; CHECK-SPIRV: Bitcast [[i8_ptr]] [[arr2_i8_ptr:[0-9]+]] [[arr2]]
-; CHECK-SPIRV: Bitcast [[const_i8_ptr]] [[test_arr2_const_i8_ptr:[0-9]+]] [[test_arr2]]
 ; CHECK-SPIRV: CopyMemorySized [[arr2_i8_ptr]] [[test_arr2_const_i8_ptr]] [[twelve]] 2 4
 
 ; CHECK-LLVM:@__const.test.arr = internal addrspace(2) constant [3 x i32] [i32 1, i32 2, i32 3], align 4 
 ; CHECK-LLVM-DAG:@__const.test.arr2 = internal addrspace(2) constant [3 x i32] [i32 1, i32 2, i32 3], align 4 
 
+; CHECK-LLVM:%[[VAR2:.*]] = bitcast [3 x i32] addrspace(2)* @__const.test.arr2 to i8 addrspace(2)* 
 ; CHECK-LLVM:%[[VAR1:.*]] = bitcast [3 x i32] addrspace(2)* @__const.test.arr to i8 addrspace(2)* 
-; CHECK-LLVM-DAG:call void @llvm.memcpy.p0i8.p2i8.i32(i8* align 4 %[[VAR0:.*]], i8 addrspace(2)* align 4 %[[VAR1]], i32 12, i1 false)
 
-; CHECK-LLVM:%[[VAR3:.*]] = bitcast [3 x i32] addrspace(2)* @__const.test.arr2 to i8 addrspace(2)* 
-; CHECK-LLVM-DAG:call void @llvm.memcpy.p0i8.p2i8.i32(i8* align 4 %[[VAR2:.*]], i8 addrspace(2)* align 4 %[[VAR3]], i32 12, i1 false)
+; CHECK-LLVM-DAG:call void @llvm.memcpy.p0i8.p2i8.i32(i8* align 4 %{{[0-9]+}}, i8 addrspace(2)* align 4 %[[VAR1]], i32 12, i1 false)
+; CHECK-LLVM-DAG:call void @llvm.memcpy.p0i8.p2i8.i32(i8* align 4 %{{[0-9]+}}, i8 addrspace(2)* align 4 %[[VAR2]], i32 12, i1 false)
 
 target datalayout = "e-p:32:32-i64:64-v16:16-v24:32-v32:32-v48:64-v96:128-v192:256-v256:256-v512:512-v1024:1024"
 target triple = "spir-unknown-unknown"

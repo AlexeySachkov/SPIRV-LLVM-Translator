@@ -84,8 +84,7 @@ target triple = "spir64"
 ; Function Attrs: convergent nounwind
 define spir_kernel void @test(<2 x float> %x, i32 %c, %opencl.image2d_ro_t addrspace(1)* %image_in, %opencl.image2d_wo_t addrspace(1)* %image_out, <2 x i32> %coord, i32 addrspace(1)* %p, i16 addrspace(1)* %sp, i8 addrspace(1)* %cp, i64 addrspace(1)* %lp) local_unnamed_addr #0 !kernel_arg_addr_space !1 !kernel_arg_access_qual !2 !kernel_arg_type !3 !kernel_arg_base_type !4 !kernel_arg_type_qual !5 !kernel_arg_name !6 {
 ; CHECK-LLVM-LABEL: @test(
-; CHECK-LLVM-NEXT:  entry:
-; CHECK-LLVM-NEXT:    [[CALL:%.*]] = call spir_func <2 x float> @_Z23intel_sub_group_shuffleDv2_fj(<2 x float> [[X:%.*]], i32 [[C:%.*]])
+; CHECK-LLVM:         [[CALL:%.*]] = call spir_func <2 x float> @_Z23intel_sub_group_shuffleDv2_fj(<2 x float> [[X:%.*]], i32 [[C:%.*]])
 ; CHECK-LLVM-NEXT:    [[CALL1:%.*]] = call spir_func <2 x float> @_Z28intel_sub_group_shuffle_downDv2_fS_j(<2 x float> [[X]], <2 x float> [[X]], i32 [[C]])
 ; CHECK-LLVM-NEXT:    [[CALL2:%.*]] = call spir_func <2 x float> @_Z26intel_sub_group_shuffle_upDv2_fS_j(<2 x float> [[X]], <2 x float> [[X]], i32 [[C]])
 ; CHECK-LLVM-NEXT:    [[CALL3:%.*]] = call spir_func <2 x float> @_Z27intel_sub_group_shuffle_xorDv2_fj(<2 x float> [[X]], i32 [[C]])

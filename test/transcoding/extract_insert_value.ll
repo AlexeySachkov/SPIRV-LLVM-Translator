@@ -18,15 +18,14 @@ target triple = "spir-unknown-unknown"
 ; CHECK-LLVM: %struct.st = type { %struct.inner }
 ; CHECK-LLVM: %struct.inner = type { float }
 
-; CHECK-LLVM:         define spir_func void @array_test
-; CHECK-LLVM-LABEL:   entry
-; CHECK-LLVM:         %0 = getelementptr inbounds %struct.arr, %struct.arr addrspace(1)* %object, i32 0, i32 0
-; CHECK-LLVM:         %1 = load [7 x float], [7 x float] addrspace(1)* %0, align 4
-; CHECK-LLVM:         %2 = extractvalue [7 x float] %1, 4
-; CHECK-LLVM:         %3 = extractvalue [7 x float] %1, 2
-; CHECK-LLVM:         %4 = fadd float %2, %3
-; CHECK-LLVM:         %5 = insertvalue [7 x float] %1, float %4, 5
-; CHECK-LLVM:         store [7 x float] %5, [7 x float] addrspace(1)* %0
+; CHECK-LLVM-LABEL:   define spir_func void @array_test
+; CHECK-LLVM:         %1 = getelementptr inbounds %struct.arr, %struct.arr addrspace(1)* %object, i32 0, i32 0
+; CHECK-LLVM:         %2 = load [7 x float], [7 x float] addrspace(1)* %1, align 4
+; CHECK-LLVM:         %3 = extractvalue [7 x float] %2, 4
+; CHECK-LLVM:         %4 = extractvalue [7 x float] %2, 2
+; CHECK-LLVM:         %5 = fadd float %3, %4
+; CHECK-LLVM:         %6 = insertvalue [7 x float] %2, float %5, 5
+; CHECK-LLVM:         store [7 x float] %6, [7 x float] addrspace(1)* %1
 
 ; CHECK-SPIRV-LABEL:  5 Function
 ; CHECK-SPIRV-NEXT:   FunctionParameter {{[0-9]+}} [[object:[0-9]+]]
@@ -52,14 +51,13 @@ entry:
   ret void
 }
 
-; CHECK-LLVM:         define spir_func void @struct_test
-; CHECK-LLVM-LABEL:   entry
-; CHECK-LLVM:         %0 = getelementptr inbounds %struct.st, %struct.st addrspace(1)* %object, i32 0, i32 0
-; CHECK-LLVM:         %1 = load %struct.inner, %struct.inner addrspace(1)* %0, align 4
-; CHECK-LLVM:         %2 = extractvalue %struct.inner %1, 0
-; CHECK-LLVM:         %3 = fadd float %2, 1.000000e+00
-; CHECK-LLVM:         %4 = insertvalue %struct.inner %1, float %3, 0
-; CHECK-LLVM:         store %struct.inner %4, %struct.inner addrspace(1)* %0
+; CHECK-LLVM-LABEL:   define spir_func void @struct_test
+; CHECK-LLVM:         %1 = getelementptr inbounds %struct.st, %struct.st addrspace(1)* %object, i32 0, i32 0
+; CHECK-LLVM:         %2 = load %struct.inner, %struct.inner addrspace(1)* %1, align 4
+; CHECK-LLVM:         %3 = extractvalue %struct.inner %2, 0
+; CHECK-LLVM:         %4 = fadd float %3, 1.000000e+00
+; CHECK-LLVM:         %5 = insertvalue %struct.inner %2, float %4, 0
+; CHECK-LLVM:         store %struct.inner %5, %struct.inner addrspace(1)* %1
 
 ; CHECK-SPIRV-LABEL:  5 Function
 ; CHECK-SPIRV-NEXT:   FunctionParameter {{[0-9]+}} [[object:[0-9]+]]

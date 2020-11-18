@@ -99,33 +99,93 @@ bool SPIRVLowerConstExpr::runOnModule(Module &Module) {
 
 /// Since SPIR-V cannot represent constant expression, constant expressions
 /// in LLVM needs to be lowered to instructions.
+///
 /// For each function, the constant expressions used by instructions of the
-/// function are replaced by instructions placed in the entry block since it
-/// dominates all other BB's. Each constant expression only needs to be lowered
+/// function are replaced by instructions placed somewhere in the beginning of
+/// the function so it dominates all other instructions.
+/// According to SPIR-V 1.5 unified specification, section 2.4. Logical
+/// Layout of a Module:
+/// > Within a Function Definition:
+/// > All OpVariable instructions in a function must be in the first block in
+/// > the function. These instructions, together with any intermixed OpLine
+/// > and OpNoLine instructions, must be the first instructions in that
+/// > block. (Note the validation rules prevent OpPhi instructions in the
+/// > first block of a function.)
+/// Therefore, lowered constant expressions must not be inserted at the
+/// beginning of the funcition, i.e. into the first basic block.
+/// At the same time, we can't insert a new instruction right before the
+/// original one, because it might be used twice and we might have one of its
+/// users handled previously.
+/// So, all new replacements for constant expressions are being inserted to
+/// the beginning of a newly created basic block, which was split from the
+/// first basic block of the function:
+/// define void @function() {
+/// entry:
+///   ; allocas
+///   ; some other instructions
+///   ret void
+/// }
+///
+/// LLVM IR above is being converted into
+/// define void @function() {
+/// entry:
+///   ; allocas
+///   br label %lowered.constexprs
+/// lowered.constexprs: ; preds = %entry
+///   ; replacements for constexpr instructions
+///   br %the_rest
+/// the_rest: ; preds: %lowered.constexprs
+///   ; some other instructions
+///   ret void
+/// }
+///
+/// Each constant expression only needs to be lowered
 /// once in each function and all uses of it by instructions in that function
 /// is replaced by one instruction.
-/// ToDo: remove redundant instructions for common subexpression
+/// TODO: remove redundant instructions for common subexpression
 
 void SPIRVLowerConstExpr::visit(Module *M) {
   for (auto &I : M->functions()) {
+    if (I.isDeclaration())
+      continue;
+
     std::list<Instruction *> WorkList;
     for (auto &BI : I) {
       for (auto &II : BI) {
         WorkList.push_back(&II);
       }
     }
-    auto FBegin = I.begin();
+
+    // We need to find a split point to insert basic block for lowered constant
+    // expressions: it would be a first non-alloca instruction
+    auto FirstBB = I.begin();
+    Instruction *FirstNonAlloca = nullptr;
+    for (Instruction &Inst : *FirstBB) {
+      if (!isa<AllocaInst>(Inst)) {
+        FirstNonAlloca = &Inst;
+        break;
+      }
+    }
+    assert(FirstNonAlloca &&
+           "Expected to find at least one non-alloca instruction in a BB");
+    // This BB is not needed in this pass and it is created to preserve existing
+    // non-alloca instructions separated from the first basic block
+    auto FirstBBWithoutAllocas = FirstBB->splitBasicBlock(FirstNonAlloca);
+    (void)FirstBBWithoutAllocas; // Suppress unused variable warning
+    // Newly created replacements for constant expressions must dominate the
+    // rest of the function body
+    auto InsertBB = FirstBB->splitBasicBlock(FirstBB->getTerminator(),
+                                             "lowered.constexprs");
     while (!WorkList.empty()) {
       auto II = WorkList.front();
 
-      auto LowerOp = [&II, &FBegin, &I](Value *V) -> Value * {
+      auto LowerOp = [&II, &InsertBB, &I](Value *V) -> Value * {
         if (isa<Function>(V))
           return V;
         auto *CE = cast<ConstantExpr>(V);
         SPIRVDBG(dbgs() << "[lowerConstantExpressions] " << *CE;)
         auto ReplInst = CE->getAsInstruction();
-        auto InsPoint = II->getParent() == &*FBegin ? II : &FBegin->back();
-        ReplInst->insertBefore(InsPoint);
+        ReplInst->insertBefore(&*InsertBB->getFirstInsertionPt());
         SPIRVDBG(dbgs() << " -> " << *ReplInst << '\n';)
         std::vector<Instruction *> Users;
         // Do not replace use during iteration of use. Do it in another loop

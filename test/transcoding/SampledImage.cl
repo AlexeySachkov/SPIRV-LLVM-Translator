@@ -30,7 +30,7 @@ void sample_kernel(image2d_t input, float2 coords, global float4 *results, sampl
 
 // CHECK-SPIRV: SampledImage [[SampledImageTy]] [[SampledImage1:[0-9]+]] [[InputImage]] [[ConstSampler1]]
 // CHECK-SPIRV: ImageSampleExplicitLod {{.*}} [[SampledImage1]]
-// CHECK-LLVM:  call spir_func <4 x float> @_Z11read_imagef14ocl_image2d_ro11ocl_samplerDv2_f(%opencl.image2d_ro_t addrspace(1)* %input, %opencl.sampler_t addrspace(2)* %0, <2 x float> %coords)
+// CHECK-LLVM:  call spir_func <4 x float> @_Z11read_imagef14ocl_image2d_ro11ocl_samplerDv2_f(%opencl.image2d_ro_t addrspace(1)* %input, %opencl.sampler_t addrspace(2)* %1, <2 x float> %coords)
 
 // CHECK-SPIRV: SampledImage [[SampledImageTy]] [[SampledImage2:[0-9]+]] [[InputImage]] [[argSampl]]
 // CHECK-SPIRV: ImageSampleExplicitLod {{.*}} [[SampledImage2]]

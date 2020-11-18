@@ -65,35 +65,36 @@ define spir_kernel void @device_side_enqueue() #0 !kernel_arg_addr_space !2 !ker
 entry:
 
 ; CHECK-SPIRV: Variable [[NDRangePtrTy]] [[NDRange:[0-9]+]]
+;
+; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit4Tmp:[0-9]+]] [[BlockGlb4]]
+; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit4:[0-9]+]] [[BlockLit4Tmp]]
+; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit3Tmp:[0-9]+]] [[BlockGlb3]]
+; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit3:[0-9]+]] [[BlockLit3Tmp]]
+; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit2Tmp:[0-9]+]] [[BlockGlb2]]
+; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit2:[0-9]+]] [[BlockLit2Tmp]]
+; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit1Tmp:[0-9]+]] [[BlockGlb1]]
+; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit1:[0-9]+]] [[BlockLit1Tmp]]
 
   %ndrange = alloca %struct.ndrange_t, align 4
 
-; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit1Tmp:[0-9]+]] [[BlockGlb1]]
-; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit1:[0-9]+]] [[BlockLit1Tmp]]
 ; CHECK-SPIRV: GetKernelWorkGroupSize [[Int32Ty]] {{[0-9]+}} [[BlockKer1]] [[BlockLit1]] [[ConstInt8]] [[ConstInt8]]
 
 ; CHECK-LLVM: call i32 @__get_kernel_work_group_size_impl(i8 addrspace(4)* {{.*}}, i8 addrspace(4)* {{.*}})
 
   %0 = call i32 @__get_kernel_work_group_size_impl(i8 addrspace(4)* addrspacecast (i8* bitcast (void (i8 addrspace(4)*)* @__device_side_enqueue_block_invoke_kernel to i8*) to i8 addrspace(4)*), i8 addrspace(4)* addrspacecast (i8 addrspace(1)* bitcast ({ i32, i32 } addrspace(1)* @__block_literal_global to i8 addrspace(1)*) to i8 addrspace(4)*))
 
-; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit2Tmp:[0-9]+]] [[BlockGlb2]]
-; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit2:[0-9]+]] [[BlockLit2Tmp]]
 ; CHECK-SPIRV: GetKernelPreferredWorkGroupSizeMultiple [[Int32Ty]] {{[0-9]+}} [[BlockKer2]] [[BlockLit2]] [[ConstInt8]] [[ConstInt8]]
 
 ; CHECK-LLVM: call i32 @__get_kernel_preferred_work_group_size_multiple_impl(i8 addrspace(4)* {{.*}}, i8 addrspace(4)* {{.*}}) #1
 
   %1 = call i32 @__get_kernel_preferred_work_group_size_multiple_impl(i8 addrspace(4)* addrspacecast (i8* bitcast (void (i8 addrspace(4)*)* @__device_side_enqueue_block_invoke_2_kernel to i8*) to i8 addrspace(4)*), i8 addrspace(4)* addrspacecast (i8 addrspace(1)* bitcast ({ i32, i32 } addrspace(1)* @__block_literal_global.1 to i8 addrspace(1)*) to i8 addrspace(4)*))
 
-; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit3Tmp:[0-9]+]] [[BlockGlb3]]
-; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit3:[0-9]+]] [[BlockLit3Tmp]]
 ; CHECK-SPIRV: GetKernelNDrangeMaxSubGroupSize [[Int32Ty]] {{[0-9]+}} [[NDRange]] [[BlockKer3]] [[BlockLit3]] [[ConstInt8]] [[ConstInt8]]
 
 ; CHECK-LLVM: call i32 @__get_kernel_max_sub_group_size_for_ndrange_impl(%struct.ndrange_t* {{.*}}, i8 addrspace(4)* {{.*}}, i8 addrspace(4)* {{.*}})
 
   %2 = call i32 @__get_kernel_max_sub_group_size_for_ndrange_impl(%struct.ndrange_t* %ndrange, i8 addrspace(4)* addrspacecast (i8* bitcast (void (i8 addrspace(4)*)* @__device_side_enqueue_block_invoke_3_kernel to i8*) to i8 addrspace(4)*), i8 addrspace(4)* addrspacecast (i8 addrspace(1)* bitcast ({ i32, i32 } addrspace(1)* @__block_literal_global.2 to i8 addrspace(1)*) to i8 addrspace(4)*))
 
-; CHECK-SPIRV: Bitcast {{[0-9]+}} [[BlockLit4Tmp:[0-9]+]] [[BlockGlb4]]
-; CHECK-SPIRV: PtrCastToGeneric [[Int8PtrGenTy]] [[BlockLit4:[0-9]+]] [[BlockLit4Tmp]]
 ; CHECK-SPIRV: GetKernelNDrangeSubGroupCount [[Int32Ty]] {{[0-9]+}} [[NDRange]] [[BlockKer4]] [[BlockLit4]] [[ConstInt8]] [[ConstInt8]]
 
 ; CHECK-LLVM: call i32 @__get_kernel_sub_group_count_for_ndrange_impl(%struct.ndrange_t* {{.*}}, i8 addrspace(4)* {{.*}}, i8 addrspace(4)* {{.*}})

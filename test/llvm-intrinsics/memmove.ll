@@ -45,7 +45,7 @@
 ; CHECK-LLVM: call void @llvm.lifetime.end.p0i8({{i[0-9]+}} {{-?[0-9]+}}, [[type]] [[tmp4]])
 
 ; CHECK-LLVM-LABEL: @copy_struct
-; CHECK-LLVM: [[out:%[0-9]+]] = addrspacecast i8 addrspace(4)* %2 to i8 addrspace(1)*
+; CHECK-LLVM: [[out:%[0-9]+]] = addrspacecast i8 addrspace(4)* %{{[0-9]+}} to i8 addrspace(1)*
 ; CHECK-LLVM: [[local:%[0-9]+]] = alloca %struct.SomeStruct
 ; CHECK-LLVM: [[tmp1:%[0-9]+]] = bitcast %struct.SomeStruct* [[local]] to [[type:i[0-9]+\*]]
 ; CHECK-LLVM: call void @llvm.lifetime.start.p0i8({{i[0-9]+}} {{-?[0-9]+}}, [[type]] [[tmp1]])

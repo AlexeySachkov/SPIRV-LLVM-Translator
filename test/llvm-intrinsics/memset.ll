@@ -37,6 +37,7 @@
 ; CHECK-SPIRV: FunctionParameter [[#]] [[#Len:]]
 ; CHECK-SPIRV: FunctionParameter [[#]] [[#Volatile:]]
 
+; CHECK-SPIRV: Label
 ; CHECK-SPIRV: Label [[#Entry:]]
 ; CHECK-SPIRV: IEqual [[#]] [[#IsZeroLen:]] [[#Zero:]] [[#Len]]
 ; CHECK-SPIRV: BranchConditional [[#IsZeroLen]] [[#End:]] [[#WhileBody:]]

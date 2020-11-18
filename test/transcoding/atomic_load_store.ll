@@ -32,8 +32,7 @@ entry:
   ret i32 %0
 }
 
-; CHECK-LLVM:         define spir_func void @test_store
-; CHECK-LLVM-LABEL:   entry
+; CHECK-LLVM-LABEL:   define spir_func void @test_store
 ; CHECK-LLVM:         call spir_func void @_Z21atomic_store_explicitPU3AS4VU7_Atomicii12memory_order12memory_scope(i32 addrspace(4)* %object, i32 %desired, i32 5, i32 2)
 
 ; CHECK-SPIRV-LABEL:  5 Function

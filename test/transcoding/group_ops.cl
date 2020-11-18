@@ -175,7 +175,7 @@ kernel void testWorkGroupUMin(uint a, global uint *res) {
 // CHECK-SPIRV: FunctionEnd
 
 // CHECK-LLVM-LABEL: @testWorkGroupBroadcast
-// CHECK-LLVM: call spir_func i32 @_Z20work_group_broadcast{{[ji]}}{{[jm]}}(i32 %a, i32 %0)
+// CHECK-LLVM: call spir_func i32 @_Z20work_group_broadcast{{[ji]}}{{[jm]}}(i32 %a, i32 %1)
 
 kernel void testWorkGroupBroadcast(uint a, global size_t *id, global int *res) {
   res[0] = work_group_broadcast(a, *id);

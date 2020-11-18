@@ -36,8 +36,8 @@
 ; CHECK-LLVM: define spir_kernel void @test
 ; CHECK-LLVM: %fp = alloca i32 (i32)*
 ; CHECK-LLVM: store i32 (i32)* @foo, i32 (i32)** %fp
-; CHECK-LLVM: %0 = load i32 (i32)*, i32 (i32)** %fp
-; CHECK-LLVM: %call = call spir_func i32 %0(i32 %1)
+; CHECK-LLVM: %[[FPTR:[0-9]+]] = load i32 (i32)*, i32 (i32)** %fp
+; CHECK-LLVM: %call = call spir_func i32 %[[FPTR]](i32 %{{[0-9]+}})
 
 target datalayout = "e-i64:64-v16:16-v24:32-v32:32-v48:64-v96:128-v192:256-v256:256-v512:512-v1024:1024"
 target triple = "spir64-unknown-unknown"

@@ -63,9 +63,8 @@ void verifyRegularizationPass(llvm::Module &M, const std::string &PassName) {
     std::string Err;
     llvm::raw_string_ostream ErrorOS(Err);
     if (llvm::verifyModule(M, &ErrorOS)) {
-      LLVM_DEBUG(llvm::errs()
-                 << "Failed to verify module after pass: " << PassName << "\n"
-                 << ErrorOS.str());
+      llvm::errs() << "Failed to verify module after pass: " << PassName << "\n"
+                 << ErrorOS.str();
     }
   }
 }

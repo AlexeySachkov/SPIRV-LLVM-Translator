@@ -18,7 +18,7 @@
 ; CHECK-SPIRV: INotEqual {{[0-9]+}} [[COMPARE]] {{[0-9]+}} {{[0-9]+}}
 ; CHECK-SPIRV: AssumeTrueINTEL [[COMPARE]]
 
-; CHECK-LLVM: %cmp = icmp ne i32 %0, 0
+; CHECK-LLVM: %cmp = icmp ne i32 %{{.*}}, 0
 ; CHECK-LLVM: call void @llvm.assume(i1 %cmp)
 
 ; CHECK-SPIRV-NO-EXT-NOT: Capability OptimizationHintsINTEL
@@ -27,7 +27,7 @@
 ; CHECK-SPIRV-NO-EXT: INotEqual {{[0-9]+}} [[COMPARE]] {{[0-9]+}} {{[0-9]+}}
 ; CHECK-SPIRV-NO-EXT-NOT: AssumeTrueINTEL [[COMPARE]]
 
-; CHECK-LLVM-NO-EXT: %cmp = icmp ne i32 %0, 0
+; CHECK-LLVM-NO-EXT: %cmp = icmp ne i32 %{{.*}}, 0
 ; CHECK-LLVM-NO-EXT-NOT: call void @llvm.assume(i1 %cmp)
 
 ; ModuleID = 'assume.cpp'

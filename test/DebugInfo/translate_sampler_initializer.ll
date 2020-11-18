@@ -24,6 +24,7 @@
 ; CHECK: ExtInst [[#]] [[#SamplerVar:]] [[#]] DebugLocalVariable
 
 ; CHECK: Label
+; CHECK: Label
 ; CHECK-NEXT: ExtInst [[#]] [[#]] [[#]] DebugScope [[#Func]] 
 ; CHECK-NEXT: Line [[#]] 0 0
 ; CHECK-NEXT: ExtInst [[#]] [[#]] [[#]] DebugValue [[#SamplerVar]] [[#ConstSampler]]

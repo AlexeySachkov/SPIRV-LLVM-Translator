@@ -12,8 +12,8 @@ kernel void testConvertPtrToU(global int *a, global unsigned long *res) {
 // CHECK-SPIRV: 4 ConvertPtrToU
 
 // CHECK-LLVM-LABEL: @testConvertPtrToU
-// CHECK-LLVM: %0 = ptrtoint i32 addrspace(1)* %a to i32
-// CHECK-LLVM: zext i32 %0 to i64
+// CHECK-LLVM: %[[RES:[0-9]+]] = ptrtoint i32 addrspace(1)* %a to i32
+// CHECK-LLVM: zext i32 %[[RES]] to i64
 
 kernel void testConvertUToPtr(unsigned long a) {
   global unsigned int *res = (global unsigned int *)a;

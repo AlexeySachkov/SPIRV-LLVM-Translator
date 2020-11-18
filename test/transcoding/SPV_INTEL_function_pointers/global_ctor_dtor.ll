@@ -28,12 +28,9 @@ target triple = "spir64-unknown-unknown"
 ; CHECK: ConstantComposite {{[0-9]+}} {{[0-9]+}} {{[0-9]+}} [[FPDtor]]
 
 ; CHECK: 5 Function [[TF]] [[NameCtor]] 0
-; CHECK-EMPTY:
-; CHECK-NEXT: Label {{[0-9]+}}
-; CHECK-NEXT: FunctionCall {{[0-9]+}} {{[0-9]+}} [[NameInit]]
-; CHECK-NEXT: Return
-; CHECK-EMPTY:
-; CHECK-NEXT: FunctionEnd
+; CHECK: FunctionCall {{[0-9]+}} {{[0-9]+}} [[NameInit]]
+; CHECK: Return
+; CHECK: FunctionEnd
 
 ; Function Attrs: nounwind sspstrong
 define internal void @_GLOBAL__sub_I_test.cpp.ctor() #0 {

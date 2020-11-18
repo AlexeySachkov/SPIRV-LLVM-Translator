@@ -35,7 +35,7 @@ for.cond:                                         ; preds = %for.inc, %entry
   %j.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
 ;CHECK-SPIRV: Phi {{[0-9]+}} {{[0-9]+}} {{[0-9]+}} {{[0-9]+}} [[BitcastResultId:[0-9]+]] {{[0-9]+}}
 ;CHECK-SPIRV-NEXT: Phi
-;CHECK-LLVM: phi %struct.Node addrspace(1)* [ %pNodes, %entry ], [ [[BitcastResult:%[0-9]+]], %for.inc ]
+;CHECK-LLVM: phi %struct.Node addrspace(1)* [ %pNodes, %{{[0-9]+}} ], [ [[BitcastResult:%[0-9]+]], %for.inc ]
 ;CHECK-LLVM-NEXT: phi
 
   %cmp = icmp slt i32 %j.0, 10

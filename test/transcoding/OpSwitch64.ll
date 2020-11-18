@@ -33,7 +33,7 @@ target triple = "spir64-unknown-unknown"
 
 ;CHECK-LLVM: test_64
 ;CHECK-LLVM: entry
-;CHECK-LLVM: switch i64 %6, label %sw.epilog [
+;CHECK-LLVM: switch i64 %7, label %sw.epilog [
 ;CHECK-LLVM: i64 0, label %sw.bb
 ;CHECK-LLVM: i64 1, label %sw.bb1
 ;CHECK-LLVM: i64 21474836481, label %sw.bb3
@@ -54,7 +54,7 @@ entry:
   ]
 
 ;CHECK-LLVM: sw.bb
-;CHECK-LLVM: preds = %entry
+;CHECK-LLVM: preds = %[[ENTRYBB:[0-9]+]]
 sw.bb:                                            ; preds = %entry
   %1 = load i64, i64* %tid, align 8
   %2 = load i32 addrspace(1)*, i32 addrspace(1)** %res.addr, align 8
@@ -63,7 +63,7 @@ sw.bb:                                            ; preds = %entry
   br label %sw.epilog
 
 ;CHECK-LLVM: sw.bb1
-;CHECK-LLVM: preds = %entry
+;CHECK-LLVM: preds = %[[ENTRYBB]]
 sw.bb1:                                           ; preds = %entry
   %3 = load i64, i64* %tid, align 8
   %4 = load i32 addrspace(1)*, i32 addrspace(1)** %res.addr, align 8
@@ -72,7 +72,7 @@ sw.bb1:                                           ; preds = %entry
   br label %sw.epilog
 
 ;CHECK-LLVM: sw.bb3
-;CHECK-LLVM: preds = %entry
+;CHECK-LLVM: preds = %[[ENTRYBB]]
 sw.bb3:                                           ; preds = %entry
   %5 = load i64, i64* %tid, align 8
   %6 = load i32 addrspace(1)*, i32 addrspace(1)** %res.addr, align 8
@@ -81,7 +81,7 @@ sw.bb3:                                           ; preds = %entry
   br label %sw.epilog
 
 ;CHECK-LLVM: sw.epilog
-;CHECK-LLVM: preds = %sw.bb3, %sw.bb1, %sw.bb, %entry
+;CHECK-LLVM: preds = %sw.bb3, %sw.bb1, %sw.bb, %[[ENTRYBB]]
 sw.epilog:                                        ; preds = %entry, %sw.bb3, %sw.bb1, %sw.bb
   ret void
 }

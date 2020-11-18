@@ -8,7 +8,7 @@
 // CHECK-SPIRV: 4 GenericCastToPtr
 
 // CHECK-LLVM-LABEL: @testGenericCastToPtrGlobal
-// CHECK-LLVM: %0 = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16> addrspace(1)*
+// CHECK-LLVM: = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16> addrspace(1)*
 
 global short2 *testGenericCastToPtrGlobal(generic short2 *a) {
   return (global short2 *)a;
@@ -17,7 +17,7 @@ global short2 *testGenericCastToPtrGlobal(generic short2 *a) {
 // CHECK-SPIRV: 4 GenericCastToPtr
 
 // CHECK-LLVM-LABEL: @testGenericCastToPtrLocal
-// CHECK-LLVM: %0 = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16> addrspace(3)*
+// CHECK-LLVM: = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16> addrspace(3)*
 
 local short2 *testGenericCastToPtrLocal(generic short2 *a) {
   return (local short2 *)a;
@@ -26,7 +26,7 @@ local short2 *testGenericCastToPtrLocal(generic short2 *a) {
 // CHECK-SPIRV: 4 GenericCastToPtr
 
 // CHECK-LLVM-LABEL: @testGenericCastToPtrPrivate
-// CHECK-LLVM: %0 = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16>*
+// CHECK-LLVM: = addrspacecast <2 x i16> addrspace(4)* %a to <2 x i16>*
 
 private short2 *testGenericCastToPtrPrivate(generic short2 *a) {
   return (private short2 *)a;

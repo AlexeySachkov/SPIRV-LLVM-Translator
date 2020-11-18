@@ -15,7 +15,7 @@
 ; CHECK-SPIRV: Extension "SPV_INTEL_fpga_loop_controls"
 ; CHECK-SPIRV-NEGATIVE-NOT: Capability FPGALoopControlsINTEL
 ; CHECK-SPIRV-NEGATIVE-NOT: Extension "SPV_INTEL_fpga_loop_controls"
-; CHECK-SPIRV: 4522248 3 2 1 1 16 3 0
+; CHECK-SPIRV: 4522248 3 2 1 1 18 3 0
 ; CHECK-SPIRV-NEGATIVE: LoopMerge {{[0-9]+}} {{[0-9]+}} 264 3 2
 
 ; CHECK-LLVM: br label %for.cond{{[0-9]*}}, !llvm.loop ![[MD:[0-9]+]]

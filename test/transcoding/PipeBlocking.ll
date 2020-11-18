@@ -30,10 +30,10 @@ target triple = "spir64-unknown-unknown"
 ; CHECK-LLVM: %opencl.pipe_ro_t = type opaque
 ; CHECK-LLVM: %opencl.pipe_wo_t = type opaque
 
-; CHECK-LLVM: call spir_func void @__read_pipe_2_bl(%opencl.pipe_ro_t addrspace(1)* %0, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
-; CHECK-LLVM: call spir_func void @__read_pipe_2_bl(%opencl.pipe_ro_t addrspace(1)* %0, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
-; CHECK-LLVM: call spir_func void @__write_pipe_2_bl(%opencl.pipe_wo_t addrspace(1)* %0, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
-; CHECK-LLVM: call spir_func void @__write_pipe_2_bl(%opencl.pipe_wo_t addrspace(1)* %0, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
+; CHECK-LLVM: call spir_func void @__read_pipe_2_bl(%opencl.pipe_ro_t addrspace(1)* %1, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
+; CHECK-LLVM: call spir_func void @__read_pipe_2_bl(%opencl.pipe_ro_t addrspace(1)* %1, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
+; CHECK-LLVM: call spir_func void @__write_pipe_2_bl(%opencl.pipe_wo_t addrspace(1)* %1, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
+; CHECK-LLVM: call spir_func void @__write_pipe_2_bl(%opencl.pipe_wo_t addrspace(1)* %1, i8 addrspace(4)* %{{[0-9]+}}, i32 4, i32 4)
 
 ; Function Attrs: convergent noinline nounwind optnone
 define spir_func void @foo(%opencl.pipe_ro_t addrspace(1)* %p, i32 addrspace(1)* %ptr) #0 {
