@@ -54,6 +54,9 @@ entry:
   %agg-temp = alloca %"struct._ZTSZZZ4mainENK3$_0clERN2cl4sycl7handlerEENKUlvE_clEvE3s_e.s_e", align 4
 ; CHECK: {{[0-9]+}} Variable [[S_E_STRUCT_PTR_ID]] [[AGG_TMP_ID:[0-9]+]]
 
+; CHECK-SPV: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_NUMBANKS_ID]]
+; CHECK-SPV: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FPGA_REG_ID]]
+; CHECK-SPV: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FILE_ID]]
 ; CHECK: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_PUMP_ID]]
 
   store %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)* %this, %"class._ZTSZZ4mainENK3$_0clERN2cl4sycl7handlerEEUlvE_.anon" addrspace(4)** %this.addr, align 8, !tbaa !69
@@ -66,7 +69,7 @@ entry:
   %Buf2 = bitcast [1 x i8]* %Buf to i8*, !dbg !72
   call void @llvm.var.annotation(i8* %Buf2, i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str, i32 0, i32 0), i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str.1, i32 0, i32 0), i32 15, i8* null), !dbg !72
 ; CHECK:      {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugNoScope
-; CHECK-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FILE_ID]]
+; CHECK-SPV-FPGA_REG-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FILE_ID]]
   call spir_func void @_Z1fv(), !dbg !74
 ; -- var.annotation call is dropped. Restore debug scope after the call.
 ; CHECK-NEXT: {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugScope
@@ -82,7 +85,7 @@ entry:
   %3 = load i32, i32* %a, align 4, !dbg !81, !tbaa !77
   %4 = call i32 @llvm.annotation.i32(i32 %3, i8* getelementptr inbounds ([25 x i8], [25 x i8]* @.str.2, i32 0, i32 0), i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str.1, i32 0, i32 0), i32 18), !dbg !82
 ; CHECK:      {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugNoScope
-; CHECK-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FPGA_REG_ID]]
+; CHECK-SPV-FPGA_REG-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[FPGA_REG_ID]]
   store i32 %4, i32* %b, align 4, !dbg !80, !tbaa !77
 ; -- Restore debug scope after the call in both cases with or without SPV_INTEL_fpga_reg extension.
 ; CHECK-NEXT: {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugScope
@@ -109,7 +112,7 @@ entry:
   %10 = bitcast [8 x i32]* %mem to i8*, !dbg !89
   %11 = call i8* @llvm.ptr.annotation.p0i8(i8* %10, i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str.3, i32 0, i32 0), i8* getelementptr inbounds ([29 x i8], [29 x i8]* @.str.1, i32 0, i32 0), i32 21, i8* null), !dbg !89
 ; CHECK:      {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugNoScope
-; CHECK-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_NUMBANKS_ID]]
+; CHECK-SPV-FPGA_REG-NEXT: {{[0-9]+}} InBoundsPtrAccessChain {{[0-9]+}} {{[0-9]+}} [[ANNO_NUMBANKS_ID]]
   %12 = bitcast i8* %11 to [8 x i32]*, !dbg !89
 ; -- annotation call is dropped. Restore debug scope
 ; CHECK-NEXT: {{[0-9]+}} ExtInst {{[0-9 ]+}} DebugScope
