@@ -94,7 +94,7 @@ jobs:
         CPP_FILES="${CPP_FILES//$'\n'/ }"
         cat diff-to-inspect.txt | /usr/lib/llvm-9/share/clang/clang-tidy-diff.py \
             -p1 -clang-tidy-binary clang-tidy-9 -quiet \
-            -path ${{ github.workspace}}/build -- "${CPP_FILES}" > clang-tidy.log 2>/dev/null
+            -path ${{ github.workspace}}/build -- "${CPP_FILES}" -I${{github.workspace}}/include > clang-tidy.log 2>/dev/null
         # By some reason, clang-tidy log contains tons of extra empty lines,
         # that confuse the check below
         sed -i '/^$/d' clang-tidy.log
