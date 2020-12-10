@@ -2,6 +2,7 @@ _SPIRV_OP(Nop, 0)
           
 _SPIRV_OP(Undef, 1)
 _SPIRV_OP(SourceContinued, 2)
+
 _SPIRV_OP(Source, 3)
 _SPIRV_OP(SourceExtension, 4)
 _SPIRV_OP(Name, 5)
