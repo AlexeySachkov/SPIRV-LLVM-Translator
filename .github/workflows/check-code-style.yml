@@ -88,9 +88,13 @@ jobs:
       if: ${{ always() && steps.gather-list-of-changes.outputs.HAS_CHANGES }}
       id: run-clang-tidy
       run: |
+        # clang-tidy shouldn't be launched on header files directly, as it
+        # produces a lot of false alarms in this case
+        CPP_FILES=$(find . -regex "\./\(lib\|tools\)/.*\.cpp")
+        CPP_FILES="${CPP_FILES//$'\n'/ }"
         cat diff-to-inspect.txt | /usr/lib/llvm-9/share/clang/clang-tidy-diff.py \
             -p1 -clang-tidy-binary clang-tidy-9 -quiet \
-            -path ${{ github.workspace}}/build > clang-tidy.log 2>/dev/null
+            -path ${{ github.workspace}}/build -- "${CPP_FILES}" > clang-tidy.log 2>/dev/null
         # By some reason, clang-tidy log contains tons of extra empty lines,
         # that confuse the check below
         sed -i '/^$/d' clang-tidy.log
