@@ -85,6 +85,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
             -DBUILD_SHARED_LIBS=${SHARED_LIBS} \
             -DLLVM_TARGETS_TO_BUILD="X86" \
+            -DLLVM_OPTIMIZED_TABLEGEN=ON \
             -DSPIRV_SKIP_CLANG_BUILD=ON \
             -DSPIRV_SKIP_DEBUG_INFO_TESTS=ON \
             -DLLVM_LIT_ARGS="-sv --no-progress-bar" \
