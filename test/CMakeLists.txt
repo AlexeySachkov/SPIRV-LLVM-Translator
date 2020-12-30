@@ -65,7 +65,7 @@ if(NOT LLVM_SPIRV_BUILD_EXTERNAL)
     llvm-dis
     not
   )
-  if(NOT SPIRV_SKIP_CLANG_BUILD OR NOT TARGET clang)
+  if(NOT SPIRV_SKIP_CLANG_BUILD) # OR NOT TARGET clang)
     list(APPEND LLVM_SPIRV_TEST_DEPS
       clang
     )
