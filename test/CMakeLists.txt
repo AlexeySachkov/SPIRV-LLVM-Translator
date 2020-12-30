@@ -5,6 +5,7 @@ option(SPIRV_SKIP_DEBUG_INFO_TESTS "Do not add llc, llvm-objdump and other toool
 
 set(SPIRV_SKIP_CLANG_BUILD ${SPIRV_SKIP_CLANG_BUILD} CACHE BOOL "temp")
 set(SPIRV_SKIP_DEBUG_INFO_TESTS ${SPIRV_SKIP_DEBUG_INFO_TESTS} CACHE BOOL "temp")
+message(WARNING "SPIRV_SKIP_CLANG_BUILD: ${SPIRV_SKIP_CLANG_BUILD}")
 
 # required by lit.site.cfg.py.in
 get_target_property(LLVM_SPIRV_DIR llvm-spirv BINARY_DIR)
@@ -62,7 +63,7 @@ if(NOT LLVM_SPIRV_BUILD_EXTERNAL)
     llvm-dis
     not
   )
-  if(NOT SPIRV_SKIP_CLANG_BUILD)
+  if(NOT SPIRV_SKIP_CLANG_BUILD OR NOT TARGET clang)
     list(APPEND LLVM_SPIRV_TEST_DEPS
       clang
     )
