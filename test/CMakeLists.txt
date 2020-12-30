@@ -1,10 +1,12 @@
 include(FindPkgConfig)
 
-option(SPIRV_SKIP_CLANG_BUILD "Do not add clang as dependency for tests, i.e. skip its build step" OFF)
-option(SPIRV_SKIP_DEBUG_INFO_TESTS "Do not add llc, llvm-objdump and other toools as dependency for tests, i.e. skip their build step" OFF)
-
-set(SPIRV_SKIP_CLANG_BUILD ${SPIRV_SKIP_CLANG_BUILD} CACHE BOOL "temp")
-set(SPIRV_SKIP_DEBUG_INFO_TESTS ${SPIRV_SKIP_DEBUG_INFO_TESTS} CACHE BOOL "temp")
+# option(SPIRV_SKIP_CLANG_BUILD "Do not add clang as dependency for tests, i.e. skip its build step" OFF)
+# option(SPIRV_SKIP_DEBUG_INFO_TESTS "Do not add llc, llvm-objdump and other toools as dependency for tests, i.e. skip their build step" OFF)
+# 
+# set(SPIRV_SKIP_CLANG_BUILD ${SPIRV_SKIP_CLANG_BUILD} CACHE BOOL "temp")
+# set(SPIRV_SKIP_DEBUG_INFO_TESTS ${SPIRV_SKIP_DEBUG_INFO_TESTS} CACHE BOOL "temp")
+llvm_canonicalize_cmake_booleans(SPIRV_SKIP_CLANG_BUILD)
+llvm_canonicalize_cmake_booleans(SPIRV_SKIP_DEBUG_INFO_TESTS)
 message(WARNING "SPIRV_SKIP_CLANG_BUILD: ${SPIRV_SKIP_CLANG_BUILD}")
 
 # required by lit.site.cfg.py.in
