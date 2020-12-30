@@ -1,5 +1,8 @@
 include(FindPkgConfig)
 
+option(SPIRV_SKIP_CLANG_BUILD "Do not add clang as dependency for tests, i.e. skip its build step" OFF)
+option(SPIRV_SKIP_DEBUG_INFO_TESTS "Do not add llc, llvm-objdump and other toools as dependency for tests, i.e. skip their build step" OFF)
+
 llvm_canonicalize_cmake_booleans(SPIRV_SKIP_CLANG_BUILD)
 llvm_canonicalize_cmake_booleans(SPIRV_SKIP_DEBUG_INFO_TESTS)
 
